@@ -5,10 +5,11 @@ Using my [Blog API](https://github.com/arito7/blog-api) for the backend.
 [Live Demo(WIP)](#)
 
 ## Features
-- JWT Authentication 
-- Create/login/logout account
-- create/read/update/delete posts
-- create/read/update/delete comments on posts
+- [ ] JWT Authentication 
+- [ ] Create/login/logout account
+- [ ] create/read/update/delete posts
+- [ ] create/read/update/delete comments on posts
+- [ ] publish/unpublish posts
 
 ## Using
 - react

@@ -16,6 +16,8 @@ const Loading = () => {
         top: 0;
         left: 0;
         z-index: 1;
+        transition-property: background-color;
+        transition-duration: 300ms;
         background-color: #aaaaaa45;
       `}
     >

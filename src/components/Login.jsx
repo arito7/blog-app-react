@@ -2,27 +2,24 @@
 import { css, jsx } from '@emotion/react';
 import { TextField, Button } from '@mui/material';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { signin } from '../config/helpers';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Loading from './Loading';
+import { useAuth } from '../App';
 
 const Login = () => {
   const loading = Loading();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const auth = useAuth();
+
+  let from = location.state?.from?.pathname || '/';
 
   const onLogin = (username, password) => {
     loading.setLoading(true);
-    signin(username, password)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.success) {
-          loading.setLoading(false);
-        } else {
-          console.log(data.message);
-          loading.setLoading(false);
-        }
-      })
-      .catch((err) => console.log(err.message));
+    auth.signIn(username, password, () => {
+      loading.setLoading(false);
+      navigate(from, { replace: true });
+    });
   };
 
   return (

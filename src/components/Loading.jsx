@@ -22,9 +22,8 @@ const Loading = () => {
       `}
     >
       <img
-        src="images/loading-blocks.svg"
+        src="/images/loading-blocks.svg"
         alt="Loading"
-        srcset=""
         width={75}
         height={75}
       />

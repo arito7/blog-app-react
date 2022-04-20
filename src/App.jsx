@@ -8,6 +8,7 @@ import Home from './components/Home';
 import NewPost from './components/NewPost';
 import Signup from './components/Signup';
 import Login from './components/Login';
+import Post from './pages/Post';
 import { signin, saveJwtToLocal, signout } from './config/helpers';
 
 function App() {
@@ -26,6 +27,9 @@ function App() {
               </RequireAuth>
             }
           />
+          <Route path="post">
+            <Route path=":id" element={<Post />} />
+          </Route>
         </Route>
       </Routes>
     </AuthProvider>

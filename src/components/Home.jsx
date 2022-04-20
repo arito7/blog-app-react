@@ -3,6 +3,7 @@ import { css, jsx } from '@emotion/react';
 import { useEffect, useState } from 'react';
 import { API_ENDPOINT } from '../config/constants';
 import { grey, shadow, shadowDarker } from '../config/css';
+import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
 const Home = () => {
@@ -46,9 +47,11 @@ const Home = () => {
 };
 
 const Post = ({ post }) => {
+  const navigate = useNavigate();
   return (
     <li
       css={css`
+        cursor: pointer;
         color: blue;
         padding: 0 1rem;
         background-color: ${grey};
@@ -60,6 +63,9 @@ const Post = ({ post }) => {
           box-shadow: ${shadowDarker};
         }
       `}
+      onClick={() => {
+        navigate(`/post/${post._id}`);
+      }}
     >
       <div
         css={css`

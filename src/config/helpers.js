@@ -1,4 +1,5 @@
 import { API_ENDPOINT } from './constants';
+import moment from 'moment';
 
 const jwtKey = 'jwtKey';
 
@@ -29,3 +30,25 @@ export const saveJwtToLocal = (jwt) => {
     console.log(error.message);
   }
 };
+
+export const signout = () => {
+  try {
+    localStorage.removeItem(jwtKey);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export function getPost(postId) {
+  const res = fetch(`${API_ENDPOINT}/posts/${postId}`);
+
+  return res;
+}
+
+export function getComments(postId) {
+  return fetch(`${API_ENDPOINT}/posts/${postId}/comments`);
+}
+
+export function formatDate(date) {
+  return moment(date).format('MMM d, YYYY');
+}

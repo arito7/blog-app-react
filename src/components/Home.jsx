@@ -3,6 +3,7 @@ import { css, jsx } from '@emotion/react';
 import { useEffect, useState } from 'react';
 import { API_ENDPOINT } from '../config/constants';
 import Post from './Post';
+import PostSkeleton from './PostSkeleton';
 
 const Home = () => {
   const [posts, setPosts] = useState(null);
@@ -34,11 +35,13 @@ const Home = () => {
           justify-contents: center;
         `}
       >
-        {posts
-          ? posts.map((post) => {
-              return <Post post={post} key={post.id} />;
-            })
-          : null}
+        {posts ? (
+          posts.map((post) => {
+            return <Post post={post} key={post.id} />;
+          })
+        ) : (
+          <PostSkeleton />
+        )}
       </ul>
     </div>
   );

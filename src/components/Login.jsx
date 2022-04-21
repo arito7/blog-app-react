@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from '@emotion/react';
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, Box, Grid } from '@mui/material';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Loading from './Loading';
@@ -44,51 +44,45 @@ const Form = ({ onLogin }) => {
   };
 
   return (
-    <form
-      action=""
-      css={css`
-        max-width: 90%;
-        margin: auto;
-        padding: 1rem;
-        display: grid;
-        gap: 1rem;
-        align-items: center;
-      `}
-    >
-      <TextField
-        variant="outlined"
-        type="text"
-        id="username"
-        label="Username"
-        name="username"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => {
-          onChange(e, setUsername);
-        }}
-      />
-      <TextField
-        label="Password"
-        variant="outlined"
-        type="password"
-        name="password"
-        id="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => {
-          onChange(e, setPassword);
-        }}
-      />
-      <Button
-        type="button"
-        variant="contained"
-        onClick={() => {
-          onLogin(username, password);
-        }}
-      >
-        Login
-      </Button>
-    </form>
+    <Box component="form">
+      <Grid container gap="1rem" p="1rem">
+        <Grid item xs={12}>
+          <TextField
+            variant="outlined"
+            type="text"
+            label="Username"
+            required
+            value={username}
+            onChange={(e) => {
+              onChange(e, setUsername);
+            }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Password"
+            variant="outlined"
+            type="password"
+            required
+            value={password}
+            onChange={(e) => {
+              onChange(e, setPassword);
+            }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            type="button"
+            variant="contained"
+            onClick={() => {
+              onLogin(username, password);
+            }}
+          >
+            Login
+          </Button>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

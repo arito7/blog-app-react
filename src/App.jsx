@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from '@emotion/react';
-import './App.css';
 import { Routes, Route, Outlet, useLocation, Navigate } from 'react-router-dom';
 import Appbar from './components/Appbar';
 import React, { useState } from 'react';

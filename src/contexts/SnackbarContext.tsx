@@ -1,9 +1,15 @@
 import { Alert, Snackbar } from '@mui/material';
 import { useContext, useState, createContext } from 'react';
 
-const SnackbarContext: any = createContext(null);
-
 type SnackbarSeverity = 'error' | 'warning' | 'info' | 'success';
+
+interface SnackbarContext {
+  setOpen: (open: boolean) => void;
+  setSeverity: (severity: SnackbarSeverity) => void;
+  setMessage: (message: string) => void;
+}
+
+const SnackbarContext = createContext<SnackbarContext>(null!);
 
 export function SnackbarProvider({ children }: { children: React.ReactNode }) {
   const [message, setMessage] = useState<string>('');

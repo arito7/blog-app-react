@@ -11,7 +11,7 @@ import {
   CardActionArea,
   CardActions,
 } from '@mui/material';
-import { useAuth } from '../App';
+import { useAuth } from '../contexts/AuthContext';
 import { Delete } from '@mui/icons-material';
 
 const Post = ({ post }) => {

@@ -4,7 +4,7 @@ import { TextField, Button, Box, Grid } from '@mui/material';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Loading from '../components/Loading';
-import { useAuth } from '../App';
+import { useAuth } from '../contexts/AuthContext';
 
 const Login = () => {
   const loading = Loading();

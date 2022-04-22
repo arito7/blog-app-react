@@ -6,7 +6,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useAuth } from '../App';
+import { useAuth } from '../contexts/AuthContext';
 import { getUserPosts } from '../config/helpers';
 import Post from '../components/Post';
 import { ExpandMoreRounded } from '@mui/icons-material';

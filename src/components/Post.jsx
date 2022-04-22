@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from '@emotion/react';
-import { grey, shadow, shadowDarker } from '../config/css';
 import { Link, useNavigate } from 'react-router-dom';
 import { formatDate } from '../config/helpers';
 import {

@@ -7,7 +7,15 @@ import {
   postComment,
 } from '../config/helpers';
 import Loading from '../components/Loading';
-import { Button, Box, Grid, TextField, Typography, Paper } from '@mui/material';
+import {
+  Button,
+  Box,
+  Grid,
+  TextField,
+  Typography,
+  Paper,
+  Divider,
+} from '@mui/material';
 import { useSnackbar } from '../contexts/SnackbarContext';
 
 const useComments = (post) => {
@@ -101,6 +109,7 @@ const Comment = ({ comment }) => {
           {formatDate(comment.createdAt)}
         </Typography>
       </Box>
+      <Divider light />
       <Typography textAlign="left">{comment.comment}</Typography>
     </Paper>
   );

@@ -19,7 +19,6 @@ const useComments = (post) => {
       getComments(post._id)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.success) {
             setComments(data.comments);
           }
@@ -28,6 +27,7 @@ const useComments = (post) => {
     }
   }, [post]);
 
+  // expose setComments to manually update comments when a new comment is posted
   return [comments, setComments];
 };
 
@@ -43,7 +43,6 @@ const Post = () => {
     getPost(params.id)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success) {
           setPost(data.post);
         }
@@ -77,7 +76,7 @@ const Post = () => {
 
         <CommentForm post={post} setComments={setComments} />
 
-        <Grid item container xs={12}>
+        <Grid item container xs={12} sm={8}>
           {comments?.map((com) => (
             <Comment comment={com} key={com.id} />
           ))}
@@ -108,6 +107,7 @@ const Comment = ({ comment }) => {
 };
 
 const CommentForm = ({ post, setComments }) => {
+  const snackbar = useSnackbar();
   const [name, setName] = useState('');
   const [comment, setComment] = useState('');
   const [commentHelper, setCommentHelper] = useState('');
@@ -132,8 +132,11 @@ const CommentForm = ({ post, setComments }) => {
     postComment(post._id, name, comment)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success) {
+          console.log(data);
+          snackbar.setSeverity('success');
+          snackbar.setMessage('Comment submitted!');
+          snackbar.setOpen(true);
           setComment('');
           setName('');
           getComments(post._id)
@@ -187,4 +190,5 @@ const CommentForm = ({ post, setComments }) => {
     </Grid>
   );
 };
+
 export default Post;

@@ -2,13 +2,15 @@
 import { css, jsx } from '@emotion/react';
 import { Routes, Route, Outlet, useLocation, Navigate } from 'react-router-dom';
 import Appbar from './components/Appbar';
-import React, { useState } from 'react';
-import Home from './components/Home';
-import NewPost from './components/NewPost';
-import Signup from './components/Signup';
-import Login from './components/Login';
+import React, { useEffect, useState } from 'react';
+import Home from './pages/Home';
+import NewPost from './pages/NewPost';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
 import Post from './pages/Post';
+import User from './pages/User';
 import { signin, saveJwtToLocal, signout } from './config/helpers';
+import { Box, Container } from '@mui/material';
 
 function App() {
   return (
@@ -26,6 +28,14 @@ function App() {
               </RequireAuth>
             }
           />
+          <Route
+            path="/profile"
+            element={
+              <RequireAuth>
+                <User />
+              </RequireAuth>
+            }
+          />
           <Route path="post">
             <Route path=":id" element={<Post />} />
           </Route>
@@ -36,18 +46,23 @@ function App() {
 }
 
 const Layout = () => {
+  const auth = useAuth();
+
+  useEffect(() => {}, []);
+
   return (
-    <div className="App">
+    <Box textAlign="center">
       <Appbar />
-      <section
+      <Box
+        component="section"
         css={css`
           max-width: 960px;
           margin: auto;
         `}
       >
         <Outlet />
-      </section>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

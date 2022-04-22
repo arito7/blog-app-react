@@ -4,7 +4,7 @@ import { Box, Button, Grid, TextField, Card } from '@mui/material';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { saveJwtToLocal, signup } from '../config/helpers';
-import Loading from './Loading';
+import Loading from '../components/Loading';
 
 const Signup = () => {
   const loading = Loading();

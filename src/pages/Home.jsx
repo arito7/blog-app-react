@@ -2,8 +2,8 @@
 import { css, jsx } from '@emotion/react';
 import { useEffect, useState } from 'react';
 import { API_ENDPOINT } from '../config/constants';
-import Post from './Post';
-import PostSkeleton from './PostSkeleton';
+import Post from '../components/Post';
+import PostSkeleton from '../components/PostSkeleton';
 
 const Home = () => {
   const [posts, setPosts] = useState(null);

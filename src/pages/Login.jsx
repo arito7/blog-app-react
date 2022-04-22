@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/react';
 import { TextField, Button, Box, Grid } from '@mui/material';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Loading from './Loading';
+import Loading from '../components/Loading';
 import { useAuth } from '../App';
 
 const Login = () => {

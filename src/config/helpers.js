@@ -45,6 +45,14 @@ export function getPost(postId) {
   return res;
 }
 
+export function postComment(postId, name, comment) {
+  return fetch(`${API_ENDPOINT}/posts/${postId}/comments`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, comment }),
+  });
+}
+
 export function getComments(postId) {
   return fetch(`${API_ENDPOINT}/posts/${postId}/comments`);
 }

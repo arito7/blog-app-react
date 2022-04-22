@@ -110,8 +110,25 @@ const Comment = ({ comment }) => {
 const CommentForm = ({ post, setComments }) => {
   const [name, setName] = useState('');
   const [comment, setComment] = useState('');
+  const [commentHelper, setCommentHelper] = useState('');
+  const [nameHelper, setNameHelper] = useState('');
 
   const handlePostComment = () => {
+    if (comment.length < 3) {
+      setCommentHelper('Your comment is too short.');
+      return;
+    } else {
+      setCommentHelper('');
+    }
+    if (name.length === 0) {
+      setNameHelper('Display name cannot be empty.');
+      return;
+    } else if (name.length < 3) {
+      setNameHelper('The display name is too short.');
+      return;
+    } else {
+      setNameHelper('');
+    }
     postComment(post._id, name, comment)
       .then((res) => res.json())
       .then((data) => {
@@ -135,6 +152,7 @@ const CommentForm = ({ post, setComments }) => {
   return (
     <Grid component="form" item xs={12} sm={6} container rowGap="1rem">
       <TextField
+        required
         sx={{ width: '100%' }}
         label="Display Name"
         variant="outlined"
@@ -142,8 +160,11 @@ const CommentForm = ({ post, setComments }) => {
         onChange={(e) => {
           setName(e.target.value);
         }}
+        error={nameHelper}
+        helperText={nameHelper}
       />
       <TextField
+        required
         sx={{ width: '100%' }}
         label="Comment"
         placeholder="I have something very nice to say..."
@@ -153,6 +174,8 @@ const CommentForm = ({ post, setComments }) => {
         onChange={(e) => {
           setComment(e.target.value);
         }}
+        error={commentHelper}
+        helperText={commentHelper}
       />
       <Button
         variant="outlined"

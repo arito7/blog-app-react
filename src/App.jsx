@@ -10,7 +10,7 @@ import Login from './pages/Login';
 import Post from './pages/Post';
 import User from './pages/User';
 import { signin, saveJwtToLocal, signout } from './config/helpers';
-import { Box, Container } from '@mui/material';
+import { SnackbarProvider } from './contexts/SnackbarContext';
 
 function App() {
   return (
@@ -46,11 +46,8 @@ function App() {
 }
 
 const Layout = () => {
-  const auth = useAuth();
-
-  useEffect(() => {}, []);
-
   return (
+    <SnackbarProvider>
     <Box textAlign="center">
       <Appbar />
       <Box
@@ -63,6 +60,7 @@ const Layout = () => {
         <Outlet />
       </Box>
     </Box>
+    </SnackbarProvider>
   );
 };
 

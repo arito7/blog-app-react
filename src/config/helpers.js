@@ -50,5 +50,5 @@ export function getComments(postId) {
 }
 
 export function formatDate(date) {
-  return moment(date).format('MMM d, YYYY');
+  return moment(date).format('MMM d, YYYY @ HH:mm');
 }

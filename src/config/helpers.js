@@ -3,6 +3,8 @@ import moment from 'moment';
 
 const jwtKey = 'jwtKey';
 
+const Authorization = `Bearer ${getToken()}`;
+
 export const signin = (username, password) => {
   const res = fetch(`${API_ENDPOINT}/login`, {
     method: 'POST',
@@ -43,6 +45,31 @@ export function getPost(postId) {
   const res = fetch(`${API_ENDPOINT}/posts/${postId}`);
 
   return res;
+}
+
+export function getUserPosts(userId) {
+  const res = fetch(`${API_ENDPOINT}/users/posts`, {
+    headers: {
+      Authorization,
+    },
+  });
+
+  return res;
+}
+
+function getToken() {
+  return localStorage.getItem(jwtKey);
+}
+
+export function createPost(title, body, publish = false) {
+  return fetch(`${API_ENDPOINT}/posts`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization,
+    },
+    body: JSON.stringify({ title, body, published: publish }),
+  });
 }
 
 export function postComment(postId, name, comment) {

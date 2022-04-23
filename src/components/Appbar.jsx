@@ -25,7 +25,10 @@ const Appbar = () => {
     { path: '/profile', label: 'My Page' },
     { path: '/newpost', label: 'New Post' },
   ];
-  const unauthLinks = [{ path: '/login', label: 'Login' }];
+  const unauthLinks = [
+    { path: '/login', label: 'Login' },
+    { path: '/signup', label: 'Sign up' },
+  ];
 
   const handleMenuItemClick = (path) => {
     navigate(path);
@@ -53,6 +56,19 @@ const Appbar = () => {
     );
   };
 
+  const AppbarButton = ({ link }) => {
+    return (
+      <Button
+        key={link.label}
+        color="inherit"
+        onClick={() => {
+          navigate(link.path);
+        }}
+      >
+        {link.label}
+      </Button>
+    );
+  };
   return (
     <Box>
       <AppBar position="static">
@@ -89,22 +105,22 @@ const Appbar = () => {
               onClick={() => {
                 navigate('/');
               }}
-              sx={{ cursor: 'pointer' }}
+              sx={{ cursor: 'pointer', display: 'flex', flexGrow: 1 }}
             >
               BlogApp
             </Typography>
-            <Box sx={{ flexGrow: 1 }}>
+            <Box
+              sx={{
+                display: { xs: 'none', sm: 'flex' },
+                justifyItems: 'space-between',
+              }}
+            >
               {links.map((link) => (
-                <Button
-                  color="inherit"
-                  key={link.label}
-                  onClick={() => {
-                    navigate(link.path);
-                  }}
-                >
-                  {link.label}
-                </Button>
+                <AppbarButton link={link} />
               ))}
+              {auth.user
+                ? authLinks.map((link) => <AppbarButton link={link} />)
+                : unauthLinks.map((link) => <AppbarButton link={link} />)}
             </Box>
           </Toolbar>
         </Container>

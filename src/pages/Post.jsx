@@ -99,6 +99,7 @@ const Post = () => {
         </Grid>
 
         <Grid item container xs={12} sm={8}>
+          <Typography variant="h6">Comments:</Typography>
           {comments?.length > 0 ? (
             comments.map((com) => <Comment comment={com} key={com.id} />)
           ) : (

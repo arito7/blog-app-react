@@ -68,6 +68,7 @@ const Post = () => {
         <Grid item xs={12}>
           <Typography variant="h4">{post?.title}</Typography>
         </Grid>
+
         <Grid item xs={6} align="left">
           <Typography variant="subtitle1">By {post?.creator}</Typography>
         </Grid>
@@ -76,18 +77,35 @@ const Post = () => {
             {formatDate(post?.createdAt)}
           </Typography>
         </Grid>
+
         <Grid item xs={12}>
-          <Typography variant="body1" component="p">
+          <Divider />
+        </Grid>
+
+        <Grid item xs={12}>
+          <Typography textAlign="left" variant="body1" component="p">
             {post?.body}
           </Typography>
         </Grid>
 
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
+
         <CommentForm post={post} setComments={setComments} />
 
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
+
         <Grid item container xs={12} sm={8}>
-          {comments?.map((com) => (
-            <Comment comment={com} key={com.id} />
-          ))}
+          {comments?.length > 0 ? (
+            comments.map((com) => <Comment comment={com} key={com.id} />)
+          ) : (
+            <Typography textAlign="center" m="auto">
+              There are no comments yet...
+            </Typography>
+          )}
         </Grid>
       </Grid>
     </div>

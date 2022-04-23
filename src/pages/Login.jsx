@@ -8,24 +8,11 @@ import { useAuth } from '../contexts/AuthContext';
 
 const Login = () => {
   const loading = Loading();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const auth = useAuth();
-
-  let from = location.state?.from?.pathname || '/';
-
-  const onLogin = (username, password) => {
-    loading.setLoading(true);
-    auth.signIn(username, password, () => {
-      loading.setLoading(false);
-      navigate(from, { replace: true });
-    });
-  };
 
   return (
     <div>
       {loading.component}
-      <Form onLogin={onLogin} />
+      <Form loading={loading} />
       <div>
         <p>
           Not a member yet? <Link to="/signup">Join us!</Link>{' '}
@@ -35,12 +22,26 @@ const Login = () => {
   );
 };
 
-const Form = ({ onLogin }) => {
+const Form = ({ loading }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const auth = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [usernameHelper, setUsernameHelper] = useState('');
+  const [passwordHelper, setPasswordHelper] = useState('');
 
-  const onChange = (e, set) => {
-    set(e.target.value);
+  let from = location.state?.from?.pathname || '/';
+
+  const usernameRegex = /^[a-z0-9]+$/i;
+  const onLogin = (username, password) => {
+    if (usernameRegex.test(username) && password.length > 2) {
+      loading.setLoading(true);
+      auth.signIn(username, password, () => {
+        loading.setLoading(false);
+        navigate(from, { replace: true });
+      });
+    }
   };
 
   return (
@@ -54,8 +55,24 @@ const Form = ({ onLogin }) => {
             required
             value={username}
             onChange={(e) => {
-              onChange(e, setUsername);
+              setUsername(e.target.value);
+              if (e.target.value.length === 0) {
+                setUsernameHelper('Username cannot be empty.');
+                return;
+              } else if (e.target.value.length < 4) {
+                setUsernameHelper('Username is too short.');
+                return;
+              } else if (!usernameRegex.test(e.target.value)) {
+                setUsernameHelper(
+                  "Username shouldn't contain any special characters."
+                );
+                return;
+              } else {
+                setUsernameHelper('');
+              }
             }}
+            error={usernameHelper}
+            helperText={usernameHelper}
           />
         </Grid>
         <Grid item xs={12}>
@@ -66,8 +83,19 @@ const Form = ({ onLogin }) => {
             required
             value={password}
             onChange={(e) => {
-              onChange(e, setPassword);
+              setPassword(e.target.value);
+              if (e.target.value.length === 0) {
+                setPasswordHelper('Password cannot be empty.');
+                return;
+              } else if (e.target.value.length < 4) {
+                setPasswordHelper('Password is too short');
+                return;
+              } else {
+                setPasswordHelper('');
+              }
             }}
+            error={passwordHelper}
+            helperText={passwordHelper}
           />
         </Grid>
         <Grid item xs={12}>

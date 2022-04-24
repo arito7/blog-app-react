@@ -127,3 +127,7 @@ export function deletePost(postId: string): Promise<Response> {
     },
   });
 }
+
+export function getUserPublicPosts(userId: string): Promise<Response> {
+  return fetch(`${API_ENDPOINT}/users/${userId}/posts`);
+}

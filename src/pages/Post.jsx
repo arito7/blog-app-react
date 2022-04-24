@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getPost, getComments, postComment } from '../config/apiHelpers';
 import { formatDate } from '../config/formatDate';
 import Loading from '../components/Loading';
@@ -11,6 +11,7 @@ import {
   Typography,
   Paper,
   Divider,
+  Link,
 } from '@mui/material';
 import { useSnackbar } from '../contexts/SnackbarContext';
 
@@ -40,6 +41,7 @@ const Post = () => {
   const [post, setPost] = useState(null);
   const [comments, setComments] = useComments(post);
   const loading = Loading();
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log('effect: getting post');
@@ -66,7 +68,19 @@ const Post = () => {
         </Grid>
 
         <Grid item xs={6} align="left">
-          <Typography variant="subtitle1">By {post?.creator}</Typography>
+          <Typography variant="subtitle1">
+            By{' '}
+            <Link
+              variant="subtitle1"
+              component="button"
+              underline="always"
+              onClick={() => {
+                navigate(`/user/${post?.creator?.id}`);
+              }}
+            >
+              {post?.creator?.username}
+            </Link>
+          </Typography>
         </Grid>
         <Grid item xs={6} align="right">
           <Typography variant="subtitle1">

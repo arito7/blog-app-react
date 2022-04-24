@@ -7,6 +7,7 @@ import NewPost from './pages/NewPost';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Post from './pages/Post';
+import Profile from './pages/Profile';
 import User from './pages/User';
 import { Box } from '@mui/material';
 import { SnackbarProvider } from './contexts/SnackbarContext';
@@ -32,11 +33,14 @@ function App() {
             path="/profile"
             element={
               <RequireAuth>
-                <User />
+                <Profile />
               </RequireAuth>
             }
           />
-          <Route path="post">
+          <Route path="/user">
+            <Route path=":id" element={<User />} />
+          </Route>
+          <Route path="/post">
             <Route path=":id" element={<Post />} />
           </Route>
         </Route>

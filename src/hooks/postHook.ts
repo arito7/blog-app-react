@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
-import { getPosts, getUserPosts } from '../config/apiHelpers';
+import {
+  getPosts,
+  getUserPosts,
+  getUserPublicPosts,
+} from '../config/apiHelpers';
 
 export function useUserPosts(userId: string) {
   const [userposts, setUserposts] = useState(null);
@@ -51,4 +55,32 @@ export function usePosts() {
   }, []);
 
   return { posts, updatePosts };
+}
+
+export function useUserPublicPosts(userId: string) {
+  const [publicPosts, setPublicPosts] = useState(null);
+  const [user, setUser] = useState(null);
+
+  function updatePublicPosts() {
+    getUserPublicPosts(userId)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setPublicPosts(data.posts);
+          setUser(data.user);
+        } else {
+          console.log(data);
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
+
+  useEffect(() => {
+    console.log('Getting public posts');
+    updatePublicPosts();
+  }, [userId]);
+
+  return { publicPosts, user, updatePublicPosts };
 }

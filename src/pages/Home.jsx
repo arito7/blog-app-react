@@ -4,24 +4,10 @@ import { useEffect, useState } from 'react';
 import { API_ENDPOINT } from '../config/constants';
 import Post from '../components/Post';
 import PostSkeleton from '../components/PostSkeleton';
+import { usePosts } from '../hooks/postHook';
 
 const Home = () => {
-  const [posts, setPosts] = useState(null);
-
-  useEffect(() => {
-    fetch(`${API_ENDPOINT}/posts`)
-      .then((res) => {
-        console.log(res);
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data.posts);
-        setPosts(data.posts);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
+  const { posts, updatePosts } = usePosts();
 
   return (
     <div>

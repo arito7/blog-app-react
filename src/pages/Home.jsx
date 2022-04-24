@@ -1,9 +1,6 @@
-/** @jsxImportSource @emotion/react */
-import { css, jsx } from '@emotion/react';
-import { useEffect, useState } from 'react';
-import { API_ENDPOINT } from '../config/constants';
 import Post from '../components/Post';
 import PostSkeleton from '../components/PostSkeleton';
+import { Box } from '@mui/material';
 import { usePosts } from '../hooks/postHook';
 
 const Home = () => {
@@ -11,24 +8,29 @@ const Home = () => {
 
   return (
     <div>
-      <ul
-        css={css`
-          margin: auto;
-          display: grid;
-          gap: 1rem;
-          max-width: 85%;
-          padding: 1rem;
-          justify-contents: center;
-        `}
+      <Box
+        component="ul"
+        sx={{
+          display: 'grid',
+          gap: '1rem',
+          padding: '1rem',
+          maxWidth: 900,
+          margin: 'auto',
+        }}
       >
         {posts ? (
           posts.map((post) => {
-            return <Post post={post} key={post.id} />;
+            return <Post post={post} key={post._id} />;
           })
         ) : (
-          <PostSkeleton />
+          <>
+            <PostSkeleton />
+            <PostSkeleton />
+            <PostSkeleton />
+            <PostSkeleton />
+          </>
         )}
-      </ul>
+      </Box>
     </div>
   );
 };

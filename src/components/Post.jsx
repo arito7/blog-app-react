@@ -25,7 +25,24 @@ const Post = ({ post, updatePosts }) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        if (data.success) {
+          snackbar.setMessage('Post Published!');
+          snackbar.setSeverity('success');
+          snackbar.setOpen(true);
+          updatePosts();
+        } else {
+          snackbar.setMessage(data.message);
+          snackbar.setSeverity('error');
+          snackbar.setOpen(true);
+        }
       })
+      .catch((err) => {
+        snackbar.setMessage(err.message);
+        snackbar.setSeverity('error');
+        snackbar.setOpen(true);
+      });
+  };
+
   const handleDelete = () => {
     deletePost(post._id)
       .then((res) => res.json())

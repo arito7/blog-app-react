@@ -119,3 +119,12 @@ export function updatePost(
     }),
   });
 }
+
+export function deletePost(postId: string): Promise<Response> {
+  return fetch(`${API_ENDPOINT}/posts/${postId}`, {
+    method: 'delete',
+    headers: {
+      Authorization,
+    },
+  });
+}

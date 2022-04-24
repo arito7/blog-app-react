@@ -10,22 +10,11 @@ import { useAuth } from '../contexts/AuthContext';
 import { getUserPosts } from '../config/helpers';
 import Post from '../components/Post';
 import { ExpandMoreRounded } from '@mui/icons-material';
+import { useUserPosts } from '../hooks/postHook';
 
 const User = () => {
   const auth = useAuth();
-  const [posts, setPosts] = useState(null);
-  console.log(auth.user._id);
-
-  useEffect(() => {
-    getUserPosts(auth.user._id)
-      .then((res) => res.json())
-      .then((data) => {
-        setPosts(data.posts);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
+  const { userposts, update } = useUserPosts(auth.user._id);
 
   return (
     <Grid container p="2rem">
@@ -47,15 +36,15 @@ const User = () => {
               Unpublished Posts
             </Typography>
             <Typography sx={{ color: 'text.secondary' }}>
-              {posts?.filter((post) => !post.published).length}
+              {userposts?.filter((post) => !post.published).length}
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <ul>
-              {posts
+              {userposts
                 ?.filter((post) => !post.published)
                 ?.map((post) => (
-                  <Post post={post} key={post._id} />
+                  <Post post={post} updatePosts={update} key={post._id} />
                 ))}
             </ul>
           </AccordionDetails>
@@ -66,15 +55,15 @@ const User = () => {
               Published Posts
             </Typography>{' '}
             <Typography sx={{ color: 'text.secondary' }}>
-              {posts?.filter((post) => post.published).length}
+              {userposts?.filter((post) => post.published).length}
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <ul>
-              {posts
+              {userposts
                 ?.filter((post) => post.published)
                 ?.map((post) => (
-                  <Post post={post} key={post._id} />
+                  <Post post={post} updatePosts={update} key={post._id} />
                 ))}
             </ul>
           </AccordionDetails>

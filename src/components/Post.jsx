@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from '@emotion/react';
 import { Link, useNavigate } from 'react-router-dom';
-import { formatDate, updatePost } from '../config/helpers';
+import { deletePost, formatDate, updatePost } from '../config/helpers';
 import {
   Typography,
   Button,
@@ -13,9 +13,11 @@ import {
 } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
 import { Delete } from '@mui/icons-material';
+import { useSnackbar } from '../contexts/SnackbarContext';
 
-const Post = ({ post }) => {
+const Post = ({ post, updatePosts }) => {
   const auth = useAuth();
+  const snackbar = useSnackbar();
   const navigate = useNavigate();
 
   const handlePublish = () => {
@@ -24,7 +26,27 @@ const Post = ({ post }) => {
       .then((data) => {
         console.log(data);
       })
-      .catch((err) => console.log(err));
+  const handleDelete = () => {
+    deletePost(post._id)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          snackbar.setMessage('Post Deleted!');
+          snackbar.setSeverity('success');
+          snackbar.setOpen(true);
+          updatePosts();
+        } else {
+          snackbar.setMessage(data.message);
+          snackbar.setSeverity('error');
+          snackbar.setOpen(true);
+        }
+      })
+      .catch((err) => {
+        snackbar.setMessage(err.message);
+        snackbar.setSeverity('error');
+        snackbar.setOpen(true);
+      });
   };
 
   return (
@@ -44,7 +66,7 @@ const Post = ({ post }) => {
       </CardActionArea>
       {auth?.user?._id === post.creator ? (
         <CardActions>
-          <Button color="error" endIcon={<Delete />}>
+          <Button onClick={handleDelete} color="error" endIcon={<Delete />}>
             Delete
           </Button>
           {post.published ? null : (

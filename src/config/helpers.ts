@@ -1,5 +1,4 @@
 import { API_ENDPOINT } from './constants';
-import moment from 'moment';
 
 const jwtKey: string = 'jwtKey';
 
@@ -101,10 +100,6 @@ export function postComment(
 
 export function getComments(postId: string): Promise<Response> {
   return fetch(`${API_ENDPOINT}/posts/${postId}/comments`);
-}
-
-export function formatDate(date: string): string {
-  return moment(date).format('MMM d, YYYY @ HH:mm');
 }
 
 export function updatePost(

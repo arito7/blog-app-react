@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from '@emotion/react';
 import { Link, useNavigate } from 'react-router-dom';
-import { deletePost, formatDate, updatePost } from '../config/helpers';
+import { deletePost, updatePost } from '../config/helpers';
+import { formatDate } from '../config/formatDate';
 import {
   Typography,
   Button,
@@ -73,7 +74,10 @@ const Post = ({ post, updatePosts }) => {
           navigate(`/post/${post._id}`);
         }}
       >
-        <CardHeader title={post.title} subheader={formatDate(post.createdAt)} />
+        <CardHeader
+          title={post.title}
+          subheader={`${post.creator.username} ${formatDate(post.createdAt)}`}
+        />
         <CardContent>
           <Typography variant="body2" textAlign="left">
             {post.body.split(' ').slice(0, 50).join(' ')}

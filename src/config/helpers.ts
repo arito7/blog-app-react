@@ -32,7 +32,11 @@ export const signup = (
   return res;
 };
 
-export const saveJwtToLocal = (jwt: string) => {
+export const getPosts = (): Promise<Response> => {
+  return fetch(`${API_ENDPOINT}/posts`);
+};
+
+export const saveJwtToLocal = (jwt: string): void => {
   try {
     localStorage.setItem(jwtKey, jwt);
   } catch (error: any) {

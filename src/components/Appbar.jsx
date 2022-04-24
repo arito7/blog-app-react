@@ -15,8 +15,10 @@ import {
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useSnackbar } from '../contexts/SnackbarContext';
 
 const Appbar = () => {
+  const snackbar = useSnackbar();
   const auth = useAuth();
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -27,7 +29,7 @@ const Appbar = () => {
   ];
   const unauthLinks = [
     { path: '/login', label: 'Login' },
-    { path: '/signup', label: 'Sign up' },
+    { path: '/signup', label: 'Sign Up' },
   ];
 
   const handleMenuItemClick = (path) => {
@@ -69,6 +71,15 @@ const Appbar = () => {
       </Button>
     );
   };
+
+  const handleSignout = () => {
+    auth.signOut(() => {
+      snackbar.setSeverity('success');
+      snackbar.setMessage('Logged out');
+      snackbar.setOpen(true);
+    });
+  };
+
   return (
     <Box>
       <AppBar position="static">
@@ -95,6 +106,11 @@ const Appbar = () => {
                 {auth.user
                   ? authLinks.map((link) => <MyMenuItem link={link} />)
                   : unauthLinks.map((link) => <MyMenuItem link={link} />)}
+                {auth.user ? (
+                  <MenuItem key="signout" onClick={handleSignout}>
+                    <Typography>Sign out</Typography>
+                  </MenuItem>
+                ) : null}
               </Menu>
             </Box>
 
@@ -105,10 +121,16 @@ const Appbar = () => {
               onClick={() => {
                 navigate('/');
               }}
-              sx={{ cursor: 'pointer', display: 'flex', flexGrow: 1 }}
+              align="center"
+              sx={{
+                cursor: 'pointer',
+                display: 'flex',
+                flexGrow: 1,
+              }}
             >
               BlogApp
             </Typography>
+
             <Box
               sx={{
                 display: { xs: 'none', sm: 'flex' },
@@ -121,6 +143,11 @@ const Appbar = () => {
               {auth.user
                 ? authLinks.map((link) => <AppbarButton link={link} />)
                 : unauthLinks.map((link) => <AppbarButton link={link} />)}
+              {auth.user ? (
+                <Button key="signout" color="inherit" onClick={handleSignout}>
+                  Sign Out
+                </Button>
+              ) : null}
             </Box>
           </Toolbar>
         </Container>

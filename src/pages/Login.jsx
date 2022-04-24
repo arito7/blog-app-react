@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Loading from '../components/Loading';
 import { useAuth } from '../contexts/AuthContext';
+import { useSnackbar } from '../contexts/SnackbarContext';
 
 const Login = () => {
   const loading = Loading();
@@ -26,6 +27,7 @@ const Form = ({ loading }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const auth = useAuth();
+  const snackbar = useSnackbar();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [usernameHelper, setUsernameHelper] = useState('');
@@ -34,11 +36,15 @@ const Form = ({ loading }) => {
   let from = location.state?.from?.pathname || '/';
 
   const usernameRegex = /^[a-z0-9]+$/i;
+
   const onLogin = (username, password) => {
     if (usernameRegex.test(username) && password.length > 2) {
       loading.setLoading(true);
       auth.signIn(username, password, () => {
         loading.setLoading(false);
+        snackbar.setSeverity('success');
+        snackbar.setMessage('Welcome Back!');
+        snackbar.setOpen(true);
         navigate(from, { replace: true });
       });
     }

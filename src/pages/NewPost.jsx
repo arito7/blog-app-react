@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { createPost } from '../config/helpers';
+import { createPost } from '../config/apiHelpers';
 
 const NewPost = () => {
   const [title, setTitle] = useState('');

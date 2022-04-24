@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {
-  getPost,
-  getComments,
-  formatDate,
-  postComment,
-} from '../config/helpers';
+import { getPost, getComments, postComment } from '../config/apiHelpers';
+import { formatDate } from '../config/formatDate';
 import Loading from '../components/Loading';
 import {
   Button,

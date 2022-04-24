@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { signin, saveJwtToLocal, signout } from '../config/helpers';
+import { signin, saveJwtToLocal, signout } from '../config/apiHelpers';
 import { useLocation, Navigate } from 'react-router-dom';
 
 interface AuthContextType {

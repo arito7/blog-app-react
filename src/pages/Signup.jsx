@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/react';
 import { Box, Button, Grid, TextField, Card } from '@mui/material';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { saveJwtToLocal, signup } from '../config/helpers';
+import { saveJwtToLocal, signup } from '../config/apiHelpers';
 import Loading from '../components/Loading';
 
 const Signup = () => {

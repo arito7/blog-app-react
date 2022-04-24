@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from '@emotion/react';
 import { Link, useNavigate } from 'react-router-dom';
-import { deletePost, updatePost } from '../config/helpers';
+import { deletePost, updatePost } from '../config/apiHelpers';
 import { formatDate } from '../config/formatDate';
 import {
   Typography,

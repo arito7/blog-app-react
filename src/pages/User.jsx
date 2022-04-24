@@ -5,9 +5,7 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { getUserPosts } from '../config/helpers';
 import Post from '../components/Post';
 import { ExpandMoreRounded } from '@mui/icons-material';
 import { useUserPosts } from '../hooks/postHook';

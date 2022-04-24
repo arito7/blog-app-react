@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getPosts, getUserPosts } from '../config/helpers';
+import { getPosts, getUserPosts } from '../config/apiHelpers';
 
 export function useUserPosts(userId: string) {
   const [userposts, setUserposts] = useState(null);

@@ -1,8 +1,14 @@
-/** @jsxImportSource @emotion/react */
-import { css, jsx } from '@emotion/react';
-import { Box, Button, Grid, TextField, Card } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Link,
+  Button,
+  Grid,
+  TextField,
+  Card,
+} from '@mui/material';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { saveJwtToLocal, signup } from '../config/apiHelpers';
 import Loading from '../components/Loading';
 
@@ -10,6 +16,10 @@ const Signup = () => {
   const loading = Loading();
   const [errMsg, setErrMsg] = useState('');
   const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate('/login');
+  };
 
   const onSignup = (username, password, rpassword) => {
     loading.setLoading(true);
@@ -33,32 +43,37 @@ const Signup = () => {
       });
   };
   return (
-    <div
-      css={css`
-        padding: 1rem;
-      `}
-    >
+    <Box p="2rem">
       {loading.component}
-      {errMsg ? (
-        <p
-          css={css`
-            background-color: #ffadad;
-            color: #9b0505;
-            border-radius: 0.25rem;
-            margin: 1rem;
-            padding: 1rem;
-          `}
-        >
-          {errMsg}
-        </p>
-      ) : null}
+      <Box sx={{ display: 'grid', gap: '1rem' }}>
+        <Typography color="primary" variant="h4" component="h2">
+          MyBlogApp
+        </Typography>
+        <Typography variant="h6">
+          Join{' '}
+          <Typography variant="h5" color="secondary" component="span">
+            tens
+          </Typography>{' '}
+          of users and share your exciting stories!
+        </Typography>
+      </Box>
+      {errMsg ? <p>{errMsg}</p> : null}
       <Form onSignup={onSignup} />
-      <div>
-        <p>
-          Already a member? <Link to="/login">Login here</Link>
-        </p>
-      </div>
-    </div>
+      <Box
+        sx={{
+          display: 'grid',
+          alignItems: 'center',
+          gap: '.5rem',
+          justifyContent: 'center',
+          gridTemplateColumns: 'repeat(2, auto)',
+        }}
+      >
+        <Typography variant="body1">Already a member?</Typography>
+        <Link component="button" variant="body1" onClick={handleLogin}>
+          Login here
+        </Link>
+      </Box>
+    </Box>
   );
 };
 
@@ -71,11 +86,11 @@ const Form = ({ onSignup }) => {
     <Box
       component="form"
       action=""
-      css={css`
-        display: grid;
-        gap: 1rem;
-        padding: 1rem;
-      `}
+      sx={{
+        display: 'grid',
+        gap: '1rem',
+        padding: '1rem',
+      }}
     >
       <TextField
         label="Username"

@@ -113,11 +113,7 @@ const Comment = ({ comment }) => {
   return (
     <Paper elevation="0" sx={{ width: '100%', padding: '1rem' }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography
-          textAlign="left"
-          variant="subtitle2"
-          color="color.secondary"
-        >
+        <Typography textAlign="left" variant="subtitle2" color="secondary">
           {comment.name} says:
         </Typography>
         <Typography textAlign="right" variant="subtitle2">

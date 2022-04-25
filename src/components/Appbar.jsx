@@ -77,6 +77,7 @@ const Appbar = () => {
       snackbar.setSeverity('success');
       snackbar.setMessage('Logged out');
       snackbar.setOpen(true);
+      navigate('/');
     });
   };
 

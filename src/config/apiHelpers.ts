@@ -1,4 +1,4 @@
-import { API_ENDPOINT } from './constants';
+const API_ENDPOINT = 'https://arito-blog-api.herokuapp.com';
 
 const jwtKey: string = 'jwtKey';
 

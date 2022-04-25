@@ -6,16 +6,20 @@ import Skeleton from '@mui/material/Skeleton';
 
 function PostSkeleton() {
   return (
-    <Card sx={{ maxWidth: 345, m: 2 }}>
+    <Card sx={{ m: 1 }}>
       <CardHeader
         title={
-          <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+          <Skeleton animation="pulse" height={10} style={{ marginBottom: 6 }} />
         }
-        subheader={<Skeleton animation="wave" height={10} width="40%" />}
+        subheader={<Skeleton animation="pulse" height={10} width="40%" />}
       />
 
       <CardContent>
-        <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
+        <Skeleton
+          sx={{ height: 190 }}
+          animation="pulse"
+          variant="rectangular"
+        />
       </CardContent>
     </Card>
   );

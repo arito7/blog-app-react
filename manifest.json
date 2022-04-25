@@ -1,7 +1,6 @@
 {
   "short_name": "MyBlogApp",
   "name": "My Blog App",
-  "icons": [{}],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",

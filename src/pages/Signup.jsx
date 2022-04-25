@@ -11,11 +11,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { saveJwtToLocal, signup } from '../config/apiHelpers';
 import Loading from '../components/Loading';
+import { useAuth } from '../contexts/AuthContext';
 
 const Signup = () => {
   const loading = Loading();
   const [errMsg, setErrMsg] = useState('');
   const navigate = useNavigate();
+  const auth = useAuth();
 
   const handleLogin = () => {
     navigate('/login');
@@ -32,7 +34,9 @@ const Signup = () => {
         if (data.success) {
           loading.setLoading(false);
           saveJwtToLocal(data.token);
-          navigate.push('/');
+          auth.signIn(username, password, () => {
+            navigate('/');
+          });
         } else {
           loading.setLoading(false);
           setErrMsg(data.message);
@@ -42,6 +46,7 @@ const Signup = () => {
         console.log(err.message);
       });
   };
+
   return (
     <Box p="2rem">
       {loading.component}

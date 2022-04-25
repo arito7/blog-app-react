@@ -2,7 +2,7 @@
 
 Using my [Blog API](https://github.com/arito7/blog-api) for the backend.
 
-[Live Demo(WIP)](#)
+[Live Demo](https://arito7.github.io/blog-app-react/)
 
 ## Features
 - [ ] JWT Authentication 
